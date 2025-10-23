@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 const table = document.querySelector('#book-table');
 const addBookBtn = document.querySelector('#new-book-btn');
 const closeModalBtn = document.querySelector('#close-modal-btn');
@@ -31,6 +31,7 @@ addBookToLibrary('Test', 'J.R.R. Tolkien', 295, 'not read yet');
 // Note from 10/22/25: Started the below function and did not have time to finish. Step 3 from Project
 
 function addBookToTable() {
+  clearBookTable();
   for (const book of myLibrary) {
     const newRow = document.createElement('tr');
     const title = document.createElement('td');
@@ -45,7 +46,40 @@ function addBookToTable() {
     const read = document.createElement('td');
     read.textContent = book.read;
     newRow.appendChild(read);
+    // const update = document.createElement('td');
+    // const updateBtn = document.createElement('button');
+    // updateBtn.textContent = 'Update Read Status';
+    // updateBtn.setAttribute('id', book.id);
+    // updateBtn.addEventListener('click', () => {
+    //   // const newLibrary = myLibrary.filter(
+    //   //   (book) => book.id !== removeBtn.attributes.id.value
+    //   // );
+    //   // myLibrary = newLibrary;
+    //   // addBookToTable();
+    // });
+    // update.appendChild(updateBtn);
+    // newRow.appendChild(update);
+    const remove = document.createElement('td');
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove Book';
+    removeBtn.setAttribute('id', book.id);
+    removeBtn.addEventListener('click', () => {
+      const newLibrary = myLibrary.filter(
+        (book) => book.id !== removeBtn.attributes.id.value
+      );
+      myLibrary = newLibrary;
+      addBookToTable();
+    });
+    remove.appendChild(removeBtn);
+    newRow.appendChild(remove);
+    // newRow.setAttribute('id', book.id);
     table.appendChild(newRow);
+  }
+}
+
+function clearBookTable() {
+  while (table.firstChild) {
+    table.removeChild(table.firstChild);
   }
 }
 
@@ -65,26 +99,26 @@ submitModalBtn.addEventListener('click', (e) => {
   const bookAuthor = document.querySelector('#author');
   const bookPages = document.querySelector('#pages');
   const bookRead = document.querySelector('input[name="read-status"]:checked');
-  const newRow = document.createElement('tr');
-  const title = document.createElement('td');
-  title.textContent = bookTitle.value;
-  newRow.appendChild(title);
-  const author = document.createElement('td');
-  author.textContent = bookAuthor.value;
-  newRow.appendChild(author);
-  const pages = document.createElement('td');
-  pages.textContent = bookPages.value;
-  newRow.appendChild(pages);
-  const read = document.createElement('td');
-  read.textContent = bookRead.value;
-  newRow.appendChild(read);
-  table.appendChild(newRow);
+  const title = bookTitle.value;
+  const author = bookAuthor.value;
+  const pages = bookPages.value;
+  const read = bookRead.value;
+  const id = crypto.randomUUID();
+  const newBook = new Book(title, author, pages, read, id);
+  myLibrary.push(newBook);
   bookTitle.value = '';
   bookAuthor.value = '';
   bookPages.value = '';
   bookRead.value = '';
+  addBookToTable();
   dialog.close();
 });
+
+// function addBookToLibrary(title, author, pages, read) {
+//   const id = crypto.randomUUID();
+//   const newBook = new Book(title, author, pages, read, id);
+//   return myLibrary.push(newBook);
+// }
 
 /* <table>
       <thead>
