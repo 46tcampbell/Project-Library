@@ -66,6 +66,10 @@ html {
   font-family: system-ui, sans-serif;
 }
 
+body {
+  background: no-repeat top/100% url('./images/Library.jpg');
+}
+
 table {
   border-collapse: collapse;
   border: 2px solid rgb(200 200 200);
@@ -99,41 +103,98 @@ tr:nth-child(odd) td {
 caption {
   padding: 10px;
   font-size: 2rem;
+  color: white;
+  /* background-color: rgba(235, 235, 235, 0.815); */
 }
 
 form button,
 table button,
 input {
-  font-family: inherit;
-  font-size: 100%;
-  width: 150px;
+  font: inherit;
+  color: inherit;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.1rem;
 }
 
 #new-book-btn {
   display: block;
   margin: 1rem auto 0.5rem;
   padding: 0.5rem;
+  background-color: #04aa6d;
+  color: white;
+  border-radius: 1rem;
 }
 
 dialog {
-  margin: 6rem auto;
+  margin: 4rem auto;
   padding: 2rem;
+  background: no-repeat center/170% url(./images/book.jpg);
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 1px 2px rgba(95, 95, 95, 0.651);
 }
-
+span.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+}
 ul {
   list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+div.modal-buttons button {
+  flex: 1;
+}
+
+#close-modal-btn {
+  background-color: #aaaaaa;
+  border-radius: 1rem;
+  color: white;
+}
+
+#submit-modal-btn {
+  background-color: #008cba;
+  border-radius: 1rem;
+  color: white;
+}
+
+.updateBtn {
+  background-color: #008cba;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.removeBtn {
+  background-color: #f44336;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
 
 ::backdrop {
-  background-image: linear-gradient(
+  background: repeating-linear-gradient(
     45deg,
-    magenta,
-    rebeccapurple,
-    dodgerblue,
-    green
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2) 1px,
+    rgba(0, 0, 0, 0.3) 1px,
+    rgba(0, 0, 0, 0.3) 20px
   );
-  opacity: 0.75;
+  backdrop-filter: blur(3px);
 }

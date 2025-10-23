@@ -48,6 +48,7 @@ function addBookToTable() {
     const updateBtn = document.createElement('button');
     updateBtn.textContent = 'Update Read Status';
     updateBtn.setAttribute('id', book.id);
+    updateBtn.classList.add('updateBtn');
     updateBtn.addEventListener('click', () => {
       const book = myLibrary.find(
         (book) => book.id === updateBtn.attributes.id.value
@@ -61,6 +62,7 @@ function addBookToTable() {
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove Book';
     removeBtn.setAttribute('id', book.id);
+    removeBtn.classList.add('removeBtn');
     removeBtn.addEventListener('click', () => {
       const newLibrary = myLibrary.filter(
         (book) => book.id !== removeBtn.attributes.id.value
