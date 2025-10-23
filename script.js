@@ -28,14 +28,6 @@ function addBookToLibrary(title, author, pages, read) {
   return myLibrary.push(newBook);
 }
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
-addBookToLibrary('Test', 'J.R.R. Tolkien', 295, 'Not Read Yet');
-
-// Note from 10/22/25: Started the below function and did not have time to finish. Step 3 from Project
-
 function addBookToTable() {
   clearBookTable();
   for (const book of myLibrary) {
@@ -78,7 +70,6 @@ function addBookToTable() {
     });
     remove.appendChild(removeBtn);
     newRow.appendChild(remove);
-    // newRow.setAttribute('id', book.id);
     table.appendChild(newRow);
   }
 }
@@ -88,8 +79,6 @@ function clearBookTable() {
     table.removeChild(table.firstChild);
   }
 }
-
-addBookToTable();
 
 addBookBtn.addEventListener('click', () => {
   dialog.showModal();
@@ -115,25 +104,7 @@ submitModalBtn.addEventListener('click', (e) => {
   bookTitle.value = '';
   bookAuthor.value = '';
   bookPages.value = '';
-  bookRead.value = '';
+  // bookRead.value = '';
   addBookToTable();
   dialog.close();
 });
-
-// function addBookToLibrary(title, author, pages, read) {
-//   const id = crypto.randomUUID();
-//   const newBook = new Book(title, author, pages, read, id);
-//   return myLibrary.push(newBook);
-// }
-
-/* <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Number of Pages</th>
-          <th>Read Status</th>
-        </tr>
-      </thead>
-      <tbody id="book-table"></tbody>
-    </table> */
