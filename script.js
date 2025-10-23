@@ -1,5 +1,9 @@
 const myLibrary = [];
 const table = document.querySelector('#book-table');
+const addBookBtn = document.querySelector('#new-book-btn');
+const closeModalBtn = document.querySelector('#close-modal-btn');
+const submitModalBtn = document.querySelector('#submit-modal-btn');
+const dialog = document.querySelector('dialog');
 
 function Book(title, author, pages, read, id) {
   this.title = title;
@@ -46,6 +50,41 @@ function addBookToTable() {
 }
 
 addBookToTable();
+
+addBookBtn.addEventListener('click', () => {
+  dialog.showModal();
+});
+
+closeModalBtn.addEventListener('click', () => {
+  dialog.close();
+});
+
+submitModalBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  const bookTitle = document.querySelector('#title');
+  const bookAuthor = document.querySelector('#author');
+  const bookPages = document.querySelector('#pages');
+  const bookRead = document.querySelector('input[name="read-status"]:checked');
+  const newRow = document.createElement('tr');
+  const title = document.createElement('td');
+  title.textContent = bookTitle.value;
+  newRow.appendChild(title);
+  const author = document.createElement('td');
+  author.textContent = bookAuthor.value;
+  newRow.appendChild(author);
+  const pages = document.createElement('td');
+  pages.textContent = bookPages.value;
+  newRow.appendChild(pages);
+  const read = document.createElement('td');
+  read.textContent = bookRead.value;
+  newRow.appendChild(read);
+  table.appendChild(newRow);
+  bookTitle.value = '';
+  bookAuthor.value = '';
+  bookPages.value = '';
+  bookRead.value = '';
+  dialog.close();
+});
 
 /* <table>
       <thead>

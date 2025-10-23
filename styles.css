@@ -71,7 +71,7 @@ table {
   border: 2px solid rgb(200 200 200);
   letter-spacing: 1px;
   font-size: 0.8rem;
-  margin: 1rem auto;
+  margin: 0 auto;
 }
 
 td,
@@ -99,4 +99,39 @@ tr:nth-child(odd) td {
 caption {
   padding: 10px;
   font-size: 2rem;
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: 100%;
+  width: 150px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button {
+  display: block;
+  margin: 1rem auto 0.5rem;
+}
+
+dialog {
+  margin: 6rem auto;
+  padding: 2rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+::backdrop {
+  background-image: linear-gradient(
+    45deg,
+    magenta,
+    rebeccapurple,
+    dodgerblue,
+    green
+  );
+  opacity: 0.75;
 }
