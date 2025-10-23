@@ -14,6 +14,12 @@ function Book(title, author, pages, read, id) {
   this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
   };
+  this.toggleReadStatus = function () {
+    if (this.read === 'Not Read Yet') {
+      return (this.read = 'Read');
+    }
+    return (this.read = 'Not Read Yet');
+  };
 }
 
 function addBookToLibrary(title, author, pages, read) {
@@ -22,11 +28,11 @@ function addBookToLibrary(title, author, pages, read) {
   return myLibrary.push(newBook);
 }
 
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet');
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet');
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet');
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'not read yet');
-addBookToLibrary('Test', 'J.R.R. Tolkien', 295, 'not read yet');
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, 'Not Read Yet');
+addBookToLibrary('Test', 'J.R.R. Tolkien', 295, 'Not Read Yet');
 
 // Note from 10/22/25: Started the below function and did not have time to finish. Step 3 from Project
 
@@ -46,19 +52,19 @@ function addBookToTable() {
     const read = document.createElement('td');
     read.textContent = book.read;
     newRow.appendChild(read);
-    // const update = document.createElement('td');
-    // const updateBtn = document.createElement('button');
-    // updateBtn.textContent = 'Update Read Status';
-    // updateBtn.setAttribute('id', book.id);
-    // updateBtn.addEventListener('click', () => {
-    //   // const newLibrary = myLibrary.filter(
-    //   //   (book) => book.id !== removeBtn.attributes.id.value
-    //   // );
-    //   // myLibrary = newLibrary;
-    //   // addBookToTable();
-    // });
-    // update.appendChild(updateBtn);
-    // newRow.appendChild(update);
+    const update = document.createElement('td');
+    const updateBtn = document.createElement('button');
+    updateBtn.textContent = 'Update Read Status';
+    updateBtn.setAttribute('id', book.id);
+    updateBtn.addEventListener('click', () => {
+      const book = myLibrary.find(
+        (book) => book.id === updateBtn.attributes.id.value
+      );
+      book.toggleReadStatus();
+      addBookToTable();
+    });
+    update.appendChild(updateBtn);
+    newRow.appendChild(update);
     const remove = document.createElement('td');
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove Book';
