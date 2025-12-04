@@ -202,3 +202,16 @@ div.modal-buttons button {
   );
   backdrop-filter: blur(3px);
 }
+
+span.error {
+  color: red;
+  background-color: rgba(0, 0, 0, 0.733);
+}
+
+.submitted input:invalid {
+  border: 2px solid red;
+}
+
+.submitted input:valid {
+  border: 2px solid green;
+}

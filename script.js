@@ -24,6 +24,8 @@ class Library extends Book {
   closeModalBtn = document.querySelector('#close-modal-btn');
   submitModalBtn = document.querySelector('#submit-modal-btn');
   dialog = document.querySelector('dialog');
+  form = document.querySelector('#form');
+  allErrorSpans = document.querySelectorAll('span.error');
 
   constructor() {
     super();
@@ -37,28 +39,91 @@ class Library extends Book {
     this.dialog.close();
   }
 
-  submitModal(e) {
+  closeAndClearModal(e) {
     e.preventDefault();
+    this.form.reset();
+    this.allErrorSpans.forEach((span) => {
+      span.textContent = '';
+    });
+    this.form.classList.remove('submitted');
+    this.closeModal();
+  }
+
+  submitModal(e) {
+    this.form.classList.add('submitted');
     const bookTitle = document.querySelector('#title');
     const bookAuthor = document.querySelector('#author');
     const bookPages = document.querySelector('#pages');
     const bookRead = document.querySelector(
       'input[name="read-status"]:checked'
     );
+    const bookReadStatus = document.querySelector('#read');
+    const titleError = document.querySelector('span.error.title');
+    const authorError = document.querySelector('span.error.author');
+    const pagesError = document.querySelector('span.error.pages');
+    const readStatusError = document.querySelector('span.error.read-status');
+    if (bookTitle.checkValidity()) {
+      titleError.textContent = '';
+      e.preventDefault();
+    } else {
+      titleError.textContent = 'Please enter a Book Title';
+      e.preventDefault();
+      // return;
+    }
+
+    if (bookAuthor.checkValidity()) {
+      authorError.textContent = '';
+      e.preventDefault();
+    } else {
+      authorError.textContent = 'Please enter a Book Author';
+      e.preventDefault();
+      // return;
+    }
+
+    if (bookPages.checkValidity()) {
+      pagesError.textContent = '';
+      e.preventDefault();
+    } else {
+      pagesError.textContent = 'Please enter the amount of Book Pages';
+      e.preventDefault();
+      // return;
+    }
+    console.log(bookReadStatus.checkValidity());
+    if (bookReadStatus.checkValidity()) {
+      readStatusError.textContent = '';
+      e.preventDefault();
+    } else {
+      readStatusError.textContent =
+        'Please choose if you have read this book or not';
+      e.preventDefault();
+    }
+
+    if (
+      titleError.textContent ||
+      authorError.textContent ||
+      pagesError.textContent ||
+      readStatusError.textContent
+    ) {
+      return;
+    }
     const title = bookTitle.value;
     const author = bookAuthor.value;
     const pages = bookPages.value;
     const read = bookRead.value;
+
+    console.dir(bookTitle.checkValidity());
     const id = crypto.randomUUID();
     const newBook = new Book(title, author, pages, read, id);
     this.myLibrary.push(newBook);
     bookTitle.value = '';
     bookAuthor.value = '';
     bookPages.value = '';
-    // bookRead.value = '';
     this.addBookToTable();
+    this.form.classList.remove('submitted');
     this.dialog.close();
   }
+
+  showError() {}
 
   addBookToTable() {
     this.clearBookTable();
@@ -115,9 +180,12 @@ class Library extends Book {
   }
 
   initializeListeners() {
-    this.closeModalBtn.addEventListener('click', this.closeModal.bind(this));
+    this.closeModalBtn.addEventListener(
+      'click',
+      this.closeAndClearModal.bind(this)
+    );
     this.addBookBtn.addEventListener('click', this.openModal.bind(this));
-    this.submitModalBtn.addEventListener('click', this.submitModal.bind(this));
+    this.form.addEventListener('submit', this.submitModal.bind(this));
   }
 
   addBookToLibrary(title, author, pages, read) {
