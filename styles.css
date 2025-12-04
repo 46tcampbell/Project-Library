@@ -67,7 +67,8 @@ html {
 }
 
 body {
-  background: no-repeat top/100% url('./images/Library.jpg');
+  background: url('./images/Library.jpg') no-repeat center center / cover;
+  min-height: 100vh;
 }
 
 table {
@@ -104,7 +105,10 @@ caption {
   padding: 10px;
   font-size: 2rem;
   color: white;
-  /* background-color: rgba(235, 235, 235, 0.815); */
+}
+
+span#caption {
+  background-color: rgba(0, 0, 0, 0.603);
 }
 
 form button,
